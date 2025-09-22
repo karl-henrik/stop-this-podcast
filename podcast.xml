@@ -1,0 +1,58 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ site.podcast.title | xml_escape }}</title>
+    <description>{{ site.podcast.description | xml_escape }}</description>
+    <link>{{ site.url }}{{ site.baseurl }}</link>
+    <language>{{ site.podcast.language }}</language>
+    <managingEditor>{{ site.podcast.email }} ({{ site.podcast.author }})</managingEditor>
+    <webMaster>{{ site.podcast.email }} ({{ site.podcast.author }})</webMaster>
+    <category>{{ site.podcast.category }}</category>
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll</generator>
+    
+    <!-- iTunes specific tags -->
+    <itunes:author>{{ site.podcast.author | xml_escape }}</itunes:author>
+    <itunes:summary>{{ site.podcast.description | xml_escape }}</itunes:summary>
+    <itunes:subtitle>{{ site.podcast.subtitle | xml_escape }}</itunes:subtitle>
+    <itunes:owner>
+      <itunes:name>{{ site.podcast.author | xml_escape }}</itunes:name>
+      <itunes:email>{{ site.podcast.email }}</itunes:email>
+    </itunes:owner>
+    <itunes:explicit>{{ site.podcast.explicit }}</itunes:explicit>
+    <itunes:category text="{{ site.podcast.category }}">
+      <itunes:category text="{{ site.podcast.subcategory }}" />
+    </itunes:category>
+    <itunes:image href="{{ site.url }}{{ site.baseurl }}/assets/images/podcast-cover.jpg" />
+    
+    {%- assign episodes = site.episodes | sort: 'date' | reverse -%}
+    {%- for episode in episodes -%}
+    <item>
+      <title>{{ episode.title | xml_escape }}</title>
+      <description>{{ episode.content | strip_html | xml_escape }}</description>
+      <pubDate>{{ episode.date | date_to_rfc822 }}</pubDate>
+      <link>{{ site.url }}{{ site.baseurl }}{{ episode.url }}</link>
+      <guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}{{ episode.url }}</guid>
+      {%- if episode.audio_file -%}
+      <enclosure url="{{ site.url }}{{ site.baseurl }}{{ episode.audio_file }}" type="audio/mpeg" length="0"/>
+      {%- endif -%}
+      
+      <!-- iTunes specific tags -->
+      <itunes:author>{{ site.podcast.author | xml_escape }}</itunes:author>
+      <itunes:subtitle>{{ episode.summary | default: episode.title | xml_escape }}</itunes:subtitle>
+      <itunes:summary>{{ episode.content | strip_html | xml_escape }}</itunes:summary>
+      {%- if episode.duration -%}
+      <itunes:duration>{{ episode.duration }}</itunes:duration>
+      {%- endif -%}
+      {%- if episode.episode_number -%}
+      <itunes:episode>{{ episode.episode_number }}</itunes:episode>
+      {%- endif -%}
+      <itunes:explicit>no</itunes:explicit>
+    </item>
+    {%- endfor -%}
+  </channel>
+</rss>

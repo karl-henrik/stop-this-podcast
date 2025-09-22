@@ -1,0 +1,46 @@
+{
+  "name": "Stop This Podcast Jekyll Site",
+  "image": "mcr.microsoft.com/devcontainers/ruby:3.2",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint",
+        "shopify.ruby-lsp",
+        "koichisasada.vscode-rdbg"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.associations": {
+          "*.html": "html",
+          "*.md": "markdown"
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [4000],
+  "portsAttributes": {
+    "4000": {
+      "label": "Jekyll Development Server",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "bundle install",
+
+  "remoteUser": "vscode",
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/vendor/bundle,target=${containerWorkspaceFolder}/vendor/bundle,type=bind,consistency=cached"
+  ]
+}

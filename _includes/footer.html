@@ -1,0 +1,37 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ '/' | relative_url }}"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">
+            {%- if site.author -%}
+              {{ site.author | escape }}
+            {%- else -%}
+              {{ site.title | escape }}
+            {%- endif -%}
+          </li>
+          {%- if site.email -%}
+            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <p>{{ site.description | escape }}</p>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Subscribe to the podcast:</p>
+        {%- if site.podcast.itunes_url -%}
+          <a href="{{ site.podcast.itunes_url }}">Apple Podcasts</a>
+        {%- endif -%}
+        {%- if site.podcast.spotify_url -%}
+          <a href="{{ site.podcast.spotify_url }}">Spotify</a>
+        {%- endif -%}
+        <a href="{{ '/podcast.xml' | relative_url }}">RSS Feed</a>
+      </div>
+    </div>
+  </div>
+</footer>

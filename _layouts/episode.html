@@ -1,0 +1,53 @@
+---
+layout: default
+---
+<article class="episode">
+  <header class="episode-header">
+    <h1 class="episode-title">{{ page.title | escape }}</h1>
+    <p class="episode-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.episode_number -%}
+        | Episode {{ page.episode_number }}
+      {%- endif -%}
+      {%- if page.duration -%}
+        | {{ page.duration }}
+      {%- endif -%}
+    </p>
+  </header>
+
+  <div class="episode-content">
+    {%- if page.audio_file -%}
+    <div class="episode-player">
+      <audio controls preload="metadata">
+        <source src="{{ page.audio_file | relative_url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    {%- endif -%}
+
+    {%- if page.summary -%}
+    <div class="episode-summary">
+      <h2>Summary</h2>
+      <p>{{ page.summary }}</p>
+    </div>
+    {%- endif -%}
+
+    <div class="episode-description">
+      {{ content }}
+    </div>
+
+    {%- if page.links -%}
+    <div class="episode-links">
+      <h3>Links mentioned in this episode:</h3>
+      <ul>
+        {%- for link in page.links -%}
+        <li><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    {%- endif -%}
+  </div>
+</article>

@@ -1,0 +1,74 @@
+# Site settings
+title: "Stop this, podcast!"
+description: "Welcome to Stop this, podcast! - A podcast about stopping things that need to be stopped."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://karl-henrik.github.io/stop-this-podcast" # the base hostname & protocol for your site
+
+# Podcast settings
+podcast:
+  title: "Stop this, podcast!"
+  subtitle: "A podcast about stopping things that need to be stopped"
+  author: "Karl Henrik"
+  email: ""
+  description: "Welcome to Stop this, podcast! where we discuss things that need to be stopped and why they should be stopped."
+  language: "en-us"
+  category: "Society & Culture"
+  subcategory: "Commentary"
+  explicit: "no"
+  itunes_url: ""
+  spotify_url: ""
+  google_podcasts_url: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  episodes:
+    output: true
+    permalink: /episodes/:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: "_episodes"
+      type: "episodes"
+    values:
+      layout: "episode"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Feed settings
+feed:
+  path: podcast.xml
+  excerpt_only: false
+
+# SEO settings
+author: "Karl Henrik"
+social:
+  name: "Karl Henrik"
+  links: []
+
+# GitHub Pages settings
+theme: minima
+repository: karl-henrik/stop-this-podcast
+
+# Exclude from processing
+exclude:
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .gitignore
+  - .devcontainer/
